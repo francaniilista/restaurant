@@ -1,0 +1,41 @@
+# linux
+*.swp
+
+# eclipse
+.classpath
+.project
+.settings/
+.metadata/
+
+# idea
+.idea/
+*.iml
+
+# osx
+.DS_Store
+
+# gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+build/
+!gradle-wrapper.jar
+gradle.properties
+
+# project
+**/bin/
+**/var/
+**/logs/
+
+# node
+*/node_modules/*
+*/app/bower_components/*
+npm-debug.log
+
+# general
+**/no-hup.out
+**/root.log
+**/out/*
+/postgres-data/
+
