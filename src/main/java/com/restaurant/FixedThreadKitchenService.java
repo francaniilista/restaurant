@@ -16,7 +16,7 @@ public class FixedThreadKitchenService implements KitchenService {
 
     @Override
     public void prepare(Dish dish) {
-        dish.getIngredients().forEach(ingredient -> stoveExecutor.submit(ingredient));
+        //dish.getIngredients().forEach(ingredient -> stoveExecutor.submit(ingredient));
     }
 
     @Override

@@ -24,23 +24,11 @@ public class Main {
                 new Dish("French fries", Arrays.asList(new Potato(300)), true, 530, Dish.Type.OTHER),
                 new Dish("Rice", Arrays.asList(new Rice(600)), true, 350, Dish.Type.OTHER));
 
-        KitchenService kitchenService = new FixedThreadKitchenService();
+        long start = System.nanoTime();
+        menu.forEach(dish -> dish.order());
+        long invocationTime = ((System.nanoTime() - start) /1_000_000);
+        System.out.println("Invocation returned after " + invocationTime + " msecs");
 
-        kitchenService.prepare(menu);
-        kitchenService.shutDownKitchen();
-    }
 
-    public static final Map<String, List<String>> dishTags = new HashMap<>();
-
-    static {
-        dishTags.put("pork", asList("greasy", "salty"));
-        dishTags.put("beef", asList("salty", "roasted"));
-        dishTags.put("chicken", asList("fried", "crisp"));
-        dishTags.put("french fries", asList("greasy", "fried"));
-        dishTags.put("rice", asList("light", "natural"));
-        dishTags.put("season fruit", asList("fresh", "natural"));
-        dishTags.put("pizza", asList("tasty", "salty"));
-        dishTags.put("prawns", asList("tasty", "roasted"));
-        dishTags.put("salmon", asList("delicious", "fresh"));
     }
 }

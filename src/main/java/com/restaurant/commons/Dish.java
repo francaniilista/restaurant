@@ -3,7 +3,7 @@ package com.restaurant.commons;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dish {
+public class Dish implements Orderable {
     private final String name;
     private final List<Ingredient> ingredients = new ArrayList<>();
     private final boolean vegetarian;
@@ -37,6 +37,16 @@ public class Dish {
     }
 
     public enum Type { MEAT, FISH, OTHER }
+
+    @Override
+    public void order() {
+        ingredients.forEach(ingredient -> ingredient.cook());
+    }
+
+    @Override
+    public void orderAsync() {
+        ingredients.forEach(ingredient -> ingredient.cookAsync());
+    }
 
     @Override
     public String toString() {

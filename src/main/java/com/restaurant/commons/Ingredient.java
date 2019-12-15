@@ -1,10 +1,16 @@
 package com.restaurant.commons;
 
+import com.restaurant.util.ThreadUtil;
+
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
-public class Ingredient implements Runnable {
+@SuppressWarnings("ALL")
+public class Ingredient implements Cookable {
     private String name;
     private int preparationTime;
     private List<PreparationUnitType> preparationSteps;
@@ -63,18 +69,27 @@ public class Ingredient implements Runnable {
     }
 
     @Override
-    public void run() {
-        System.out.println("Preparing: " + this);
-
+    public long cook() {
         long start = System.nanoTime();
-        int delay = getPreparationTime();
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        ThreadUtil.delay(getPreparationTime());
+        System.out.println(name + " is being cooked, " + Thread.currentThread().getName());
         long invocationTime = ((System.nanoTime() - start) / 1_000_000);
-        System.out.println("The " + name + " got prepared after " + invocationTime + " msecs");
-        System.out.println("----------");
+
+        return invocationTime;
+    }
+
+    @Override
+    public Future<Long> cookAsync() {
+        CompletableFuture<Long> futureMeal = new CompletableFuture<>();
+        new Thread(() -> {
+            long start = System.nanoTime();
+            ThreadUtil.delay(getPreparationTime());
+            System.out.println(name + " is being cooked, " + Thread.currentThread().getName());
+            long invocationTime = ((System.nanoTime() - start) / 1_000_000);
+
+            futureMeal.complete(invocationTime);
+        }).start();
+
+        return futureMeal;
     }
 }
