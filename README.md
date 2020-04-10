@@ -13,7 +13,7 @@ This is where the concurrency takes place. Let's take a look at the different po
 implementation using Java API and RxJava 2.
 
 
-###Increments
+### Increments
 * First Increment
 ```bash
 $ git checkout 92d324dce3cb335124f620f380bc33df39ea9d7c
